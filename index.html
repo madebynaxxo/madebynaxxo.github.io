@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Made by NAXXO — Portafolio</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" />
+  <style>
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+    :root {
+      --red:   #D10000;
+      --black: #0C0C0C;
+      --white: #F0EAE2;
+      --grey:  #161616;
+      --grey2: #1E1E1E;
+      --muted: #555;
+      --font:  'Helvetica Neue', 'Helvetica', Arial, sans-serif;
+      --ease:  cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: var(--font);
+      font-size: 16px;
+      line-height: 1.5;
+      overflow-x: hidden;
+      cursor: none;
+    }
+    ::selection { background: var(--red); color: var(--white); }
+    ::-webkit-scrollbar { width: 3px; }
+    ::-webkit-scrollbar-track { background: var(--black); }
+    ::-webkit-scrollbar-thumb { background: var(--red); }
+
+    /* ── GRAIN ── */
+    .grain {
+      position: fixed; top: -50%; left: -50%;
+      width: 200%; height: 200%;
+      pointer-events: none; z-index: 9999; opacity: 0.04;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+      animation: grain 0.5s steps(2) infinite;
+    }
+    @keyframes grain {
+      0%,100%{ transform:translate(0,0); }
+      20%    { transform:translate(-2%,-2%); }
+      40%    { transform:translate(2%,2%); }
+      60%    { transform:translate(-1%,2%); }
+      80%    { transform:translate(3%,-1%); }
+    }
+
+    /* ── CURSOR ── */
+    .cursor {
+      position: fixed; width:8px; height:8px; border-radius:50%;
+      background: var(--red); pointer-events: none; z-index:10000;
+      transform: translate(-50%,-50%); transition: transform 0.15s var(--ease);
+    }
+    .cursor-ring {
+      position: fixed; width:34px; height:34px; border-radius:50%;
+      border: 1px solid rgba(209,0,0,0.45); pointer-events:none; z-index:9998;
+      transform: translate(-50%,-50%);
+      transition: width 0.25s var(--ease), height 0.25s var(--ease), border-color 0.25s;
+    }
+    body:hover .cursor { opacity:1; }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal, .reveal-l, .reveal-r {
+      opacity:0; transition: opacity 0.75s var(--ease), transform 0.75s var(--ease);
+    }
+    .reveal   { transform: translateY(36px); }
+    .reveal-l { transform: translateX(-36px); }
+    .reveal-r { transform: translateX(36px); }
+    .reveal.vis, .reveal-l.vis, .reveal-r.vis { opacity:1; transform:none; }
+    .d1 { transition-delay:0.1s; }
+    .d2 { transition-delay:0.2s; }
+    .d3 { transition-delay:0.3s; }
+    .d4 { transition-delay:0.4s; }
+    .d5 { transition-delay:0.5s; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top:0; left:0; right:0; z-index:500;
+      display: flex; justify-content:space-between; align-items:center;
+      padding: 1.3rem 4rem;
+      background: rgba(12,12,12,0.88);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,0.045);
+    }
+    .nav-logo {
+      font-weight:900; font-size:1rem; letter-spacing:0.14em;
+      color:var(--white); text-transform:uppercase; text-decoration:none;
+      display:flex; align-items:center; gap:0.6rem;
+    }
+    .nav-dot {
+      width:7px; height:7px; border-radius:50%; background:var(--red);
+      animation: blink 2.2s ease-in-out infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:0.4;transform:scale(1.5);} }
+    .nav-links { display:flex; gap:2.5rem; list-style:none; align-items:center; }
+    .nav-links a {
+      font-weight:700; font-size:0.7rem; letter-spacing:0.18em;
+      color:#5a5a5a; text-decoration:none; text-transform:uppercase;
+      transition:color 0.2s; position:relative;
+    }
+    .nav-links a::after {
+      content:''; position:absolute; bottom:-4px; left:0;
+      width:0; height:1px; background:var(--red); transition:width 0.3s var(--ease);
+    }
+    .nav-links a:hover { color:var(--white); }
+    .nav-links a:hover::after { width:100%; }
+    .nav-cta {
+      background:var(--red) !important; color:var(--white) !important;
+      padding:0.5rem 1.3rem; letter-spacing:0.14em !important;
+    }
+    .nav-cta::after { display:none !important; }
+    .nav-cta:hover { background:#e60000 !important; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height:100vh; display:flex; flex-direction:column;
+      justify-content:flex-end; padding:7rem 4rem 4.5rem;
+      position:relative; overflow:hidden;
+      border-bottom:1px solid rgba(255,255,255,0.05);
+    }
+    .hero-deco {
+      position:absolute; top:50%; left:50%;
+      transform:translate(-50%,-52%);
+      font-weight:900; font-style:italic;
+      font-size:clamp(14rem,26vw,28rem);
+      color:transparent;
+      -webkit-text-stroke:1px rgba(209,0,0,0.06);
+      white-space:nowrap; pointer-events:none; user-select:none;
+      letter-spacing:-0.04em;
+    }
+    .hero-kr {
+      position:absolute; top:50%; right:4rem;
+      transform:translateY(-50%);
+      font-size:0.65rem; letter-spacing:0.35em;
+      color:rgba(209,0,0,0.18); text-transform:uppercase;
+      writing-mode:vertical-rl;
+    }
+    .hero-label {
+      font-weight:700; font-size:0.7rem; letter-spacing:0.3em;
+      color:var(--red); text-transform:uppercase;
+      display:flex; align-items:center; gap:1rem; margin-bottom:1.5rem;
+    }
+    .hero-label::before { content:''; width:28px; height:1px; background:var(--red); }
+    .hero-name {
+      font-weight:900; font-size:clamp(5rem,14vw,14rem);
+      line-height:0.84; text-transform:uppercase; letter-spacing:-0.035em;
+      color:var(--white); margin-bottom:3rem;
+    }
+    .hero-name .red { color:var(--red); }
+    .hero-bottom {
+      display:flex; justify-content:space-between; align-items:flex-end; gap:2rem;
+      padding-top:2rem; border-top:1px solid rgba(255,255,255,0.06);
+    }
+    .hero-desc {
+      max-width:420px; font-size:0.86rem; color:#5a5a5a; line-height:1.8;
+    }
+    .hero-locs { display:flex; flex-direction:column; align-items:flex-end; gap:0.4rem; }
+    .hero-loc {
+      font-weight:700; font-size:0.68rem; letter-spacing:0.2em;
+      color:#333; text-transform:uppercase;
+    }
+    .hero-loc.act { color:#666; }
+
+    /* ── MARQUEE ── */
+    .mq-wrap {
+      overflow:hidden; padding:1rem 0; background:var(--red);
+      border-top:1px solid rgba(0,0,0,0.15);
+      border-bottom:1px solid rgba(0,0,0,0.15);
+    }
+    .mq-track {
+      display:flex; animation:mq 22s linear infinite; white-space:nowrap;
+    }
+    .mq-wrap.rev .mq-track { animation-direction:reverse; }
+    .mq-track span {
+      font-weight:900; font-size:0.7rem; letter-spacing:0.28em;
+      text-transform:uppercase; color:rgba(0,0,0,0.75); padding:0 2rem;
+    }
+    .mq-track .sep { color:rgba(0,0,0,0.2); }
+    @keyframes mq { from{transform:translateX(0);} to{transform:translateX(-50%);} }
+
+    /* ── SECTION BASE ── */
+    .band {
+      padding:7rem 4rem;
+      border-bottom:1px solid rgba(255,255,255,0.05);
+    }
+    .band.alt { background:#0f0f0f; }
+
+    .s-header {
+      display:grid;
+      grid-template-columns: auto 1fr auto;
+      align-items:end; gap:1rem 3rem; margin-bottom:4rem;
+    }
+    .s-num {
+      font-weight:900; font-size:0.62rem; letter-spacing:0.3em;
+      color:var(--red); text-transform:uppercase; padding-top:0.4rem;
+    }
+    .s-title {
+      font-weight:900; font-size:clamp(2.8rem,6.5vw,7.5rem);
+      text-transform:uppercase; line-height:0.87; letter-spacing:-0.025em;
+      color:var(--white);
+    }
+    .s-title em { color:var(--red); font-style:italic; }
+    .s-desc {
+      max-width:270px; font-size:0.8rem; color:#4a4a4a;
+      line-height:1.8; text-align:right;
+    }
+
+    /* ── PERFIL ── */
+    .perfil-grid {
+      display:grid; grid-template-columns:1fr 1fr; gap:0;
+      border-bottom:1px solid rgba(255,255,255,0.05);
+    }
+    .perfil-bio {
+      padding:7rem 4rem;
+      border-right:1px solid rgba(255,255,255,0.05);
+    }
+    .p-photo {
+      width:160px; height:160px; overflow:hidden;
+      margin-bottom:2.5rem;
+      border:1px solid #222; position:relative;
+      border-radius:50%;
+    }
+    .p-photo img {
+      width:100%; height:100%; object-fit:cover; object-position:center 15%;
+      filter:grayscale(15%) contrast(1.05);
+      transition:filter 0.4s;
+    }
+    .p-photo:hover img { filter:grayscale(0%) contrast(1); }
+    .p-tag {
+      font-weight:700; font-size:0.62rem; letter-spacing:0.3em;
+      color:var(--red); text-transform:uppercase; margin-bottom:2rem;
+      display:flex; align-items:center; gap:0.8rem;
+    }
+    .p-tag::before { content:''; width:18px; height:1px; background:var(--red); }
+    .p-name {
+      font-weight:900; font-size:clamp(2rem,4vw,4.5rem);
+      text-transform:uppercase; line-height:0.9; letter-spacing:-0.02em;
+      color:var(--white); margin-bottom:0.6rem;
+    }
+    .p-role {
+      font-size:0.78rem; color:#444; letter-spacing:0.06em; margin-bottom:2rem;
+    }
+    .p-text {
+      font-size:0.86rem; color:#555; line-height:1.85;
+      max-width:520px; margin-bottom:2rem;
+    }
+    .pills { display:flex; flex-wrap:wrap; gap:0.45rem; margin-bottom:2rem; }
+    .pill {
+      font-weight:700; font-size:0.6rem; letter-spacing:0.14em;
+      text-transform:uppercase; padding:0.28rem 0.75rem;
+      border:1px solid #252525; color:#4a4a4a;
+      transition:border-color 0.2s, color 0.2s;
+    }
+    .pill:hover { border-color:var(--red); color:var(--white); }
+    .p-btns { display:flex; gap:1.2rem; flex-wrap:wrap; margin-top:2.5rem; }
+    .btn {
+      font-weight:700; font-size:0.68rem; letter-spacing:0.16em;
+      text-transform:uppercase; text-decoration:none; padding:0.8rem 2rem;
+      display:inline-flex; align-items:center; gap:0.4rem; transition:all 0.2s;
+    }
+    .btn-red { background:var(--red); color:var(--white); }
+    .btn-red:hover { background:#e60000; }
+    .btn-out { border:1px solid #282828; color:#4a4a4a; }
+    .btn-out:hover { border-color:var(--red); color:var(--white); }
+
+    .perfil-stats { padding:7rem 4rem; display:flex; flex-direction:column; justify-content:center; }
+    .stat {
+      padding:2rem 0; border-bottom:1px solid rgba(255,255,255,0.05);
+      display:grid; grid-template-columns:auto 1fr; gap:1.5rem; align-items:start;
+    }
+    .stat:last-child { border-bottom:none; }
+    .stat-n {
+      font-weight:900; font-size:clamp(2.5rem,4.5vw,4.5rem);
+      line-height:1; letter-spacing:-0.04em; color:var(--white);
+    }
+    .stat-n .r { color:var(--red); }
+    .stat-l { font-size:0.78rem; color:#4a4a4a; line-height:1.6; padding-top:0.4rem; }
+
+    /* ── PROJECT GRID ── */
+    .pgrid {
+      display:grid; grid-template-columns:repeat(12,1fr); gap:2px;
+    }
+    .card {
+      overflow:hidden; background:var(--grey); cursor:pointer; position:relative;
+    }
+    .card:nth-child(6n+1) { grid-column:span 7; }
+    .card:nth-child(6n+2) { grid-column:span 5; }
+    .card:nth-child(6n+3) { grid-column:span 4; }
+    .card:nth-child(6n+4) { grid-column:span 8; }
+    .card:nth-child(6n+5) { grid-column:span 6; }
+    .card:nth-child(6n+6) { grid-column:span 6; }
+    .card.accent { grid-column:span 12 !important; background:var(--red); }
+
+    .c-ph {
+      width:100%; aspect-ratio:16/9; background:#111;
+      display:flex; align-items:center; justify-content:center;
+      font-size:0.6rem; letter-spacing:0.2em; color:#282828;
+      text-transform:uppercase; overflow:hidden; position:relative;
+      transition:background 0.4s;
+    }
+    .c-ph img {
+      position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+      transition:transform 0.6s var(--ease);
+    }
+    .card:hover .c-ph { background:#181818; }
+    .card:hover .c-ph img { transform:scale(1.05); }
+
+    .c-inner {
+      padding:2rem; display:flex; flex-direction:column; gap:0.9rem;
+      border:1px solid rgba(255,255,255,0.04); transition:border-color 0.3s;
+    }
+    .card:hover .c-inner { border-color:rgba(209,0,0,0.35); }
+    .card.accent .c-inner { border-color:transparent; padding:2.5rem; }
+
+    .c-top { display:flex; justify-content:space-between; align-items:flex-start; }
+    .c-tag {
+      font-weight:700; font-size:0.58rem; letter-spacing:0.2em;
+      color:var(--red); text-transform:uppercase;
+      border:1px solid var(--red); padding:0.18rem 0.55rem;
+    }
+    .card.accent .c-tag { color:rgba(0,0,0,0.65); border-color:rgba(0,0,0,0.3); }
+    .c-yr { font-weight:700; font-size:0.68rem; color:#333; letter-spacing:0.08em; }
+    .card.accent .c-yr { color:rgba(0,0,0,0.3); }
+    .c-title {
+      font-weight:900; font-size:clamp(1.3rem,2.5vw,2.4rem);
+      text-transform:uppercase; line-height:0.93; letter-spacing:-0.01em; color:var(--white);
+    }
+    .card.accent .c-title { font-size:clamp(2rem,4vw,5rem); color:var(--black); }
+    .c-body { font-size:0.78rem; color:#4a4a4a; line-height:1.8; }
+    .card.accent .c-body { color:rgba(0,0,0,0.5); }
+    .c-meta { display:flex; gap:1rem; flex-wrap:wrap; }
+    .mpill {
+      font-weight:700; font-size:0.58rem; letter-spacing:0.14em;
+      text-transform:uppercase; color:#383838;
+      display:flex; align-items:center; gap:0.3rem;
+    }
+    .mpill::before {
+      content:''; width:3px; height:3px; border-radius:50%;
+      background:var(--red); flex-shrink:0;
+    }
+    .card.accent .mpill { color:rgba(0,0,0,0.35); }
+    .card.accent .mpill::before { background:rgba(0,0,0,0.4); }
+
+    .s-cta { margin-top:2.5rem; display:flex; justify-content:flex-end; }
+
+    /* ── REEL TABLE ── */
+    .rtable {
+      width:100%; border-collapse:collapse; margin-top:2rem;
+    }
+    .rtable th {
+      font-weight:700; font-size:0.6rem; letter-spacing:0.25em;
+      text-transform:uppercase; color:var(--red); text-align:left;
+      padding:0.7rem 1.2rem; border-bottom:1px solid rgba(255,255,255,0.07);
+    }
+    .rtable td {
+      padding:1rem 1.2rem; border-bottom:1px solid rgba(255,255,255,0.04);
+      font-size:0.8rem; color:#555; vertical-align:middle; transition:color 0.2s;
+    }
+    .rtable tr:hover td { color:var(--white); }
+    .rt-title { font-weight:700; font-size:0.9rem; text-transform:uppercase; color:var(--white); }
+    .rtable .top-r td { background:rgba(209,0,0,0.04); }
+    .top-b {
+      font-size:0.52rem; background:var(--red); color:#fff;
+      padding:0.1rem 0.4rem; letter-spacing:0.1em; font-weight:700;
+      text-transform:uppercase; margin-left:0.4rem;
+    }
+
+    /* ── CONTACTO ── */
+    .contact-grid {
+      display:grid; grid-template-columns:1fr 1fr; gap:0;
+      border-bottom:1px solid rgba(255,255,255,0.05);
+    }
+    .c-info {
+      padding:7rem 4rem;
+      border-right:1px solid rgba(255,255,255,0.05);
+    }
+    .c-ttl {
+      font-weight:900; font-size:clamp(2.5rem,5.5vw,6.5rem);
+      text-transform:uppercase; line-height:0.87; letter-spacing:-0.03em;
+      color:var(--white); margin-bottom:3rem;
+    }
+    .c-ttl em { color:var(--red); font-style:italic; }
+    .c-items { display:flex; flex-direction:column; }
+    .c-item {
+      display:flex; align-items:center; gap:1.4rem;
+      padding:1.2rem 0; border-bottom:1px solid rgba(255,255,255,0.05);
+      text-decoration:none; color:#4a4a4a; transition:color 0.2s;
+    }
+    .c-item:hover { color:var(--white); }
+    .c-item:hover .c-ico { background:var(--red); color:var(--white); border-color:var(--red); }
+    .c-ico {
+      width:42px; height:42px; border:1px solid #222;
+      display:flex; align-items:center; justify-content:center;
+      font-size:1rem; flex-shrink:0; color:#4a4a4a; transition:all 0.2s;
+    }
+    .c-lbl { font-weight:700; font-size:0.6rem; letter-spacing:0.2em; text-transform:uppercase; color:#3a3a3a; margin-bottom:0.15rem; }
+    .c-val { font-size:0.86rem; }
+    .social-row { display:flex; gap:0.7rem; margin-top:2.5rem; }
+    .soc-btn {
+      width:46px; height:46px; border:1px solid #1e1e1e;
+      display:flex; align-items:center; justify-content:center;
+      font-size:1.05rem; color:#4a4a4a; text-decoration:none; transition:all 0.2s;
+    }
+    .soc-btn:hover { border-color:var(--red); color:var(--red); background:rgba(209,0,0,0.06); }
+
+    .c-form-wrap { padding:7rem 4rem; }
+    .f-ttl {
+      font-weight:900; font-size:1.1rem; letter-spacing:0.08em;
+      text-transform:uppercase; color:var(--white); margin-bottom:2.5rem;
+    }
+    .fgroup { margin-bottom:1.4rem; }
+    .flbl {
+      display:block; font-weight:700; font-size:0.6rem; letter-spacing:0.2em;
+      text-transform:uppercase; color:#3a3a3a; margin-bottom:0.55rem;
+    }
+    .finput, .ftarea {
+      width:100%; background:#0e0e0e; border:1px solid #1e1e1e;
+      color:var(--white); font-family:var(--font); font-size:0.85rem;
+      padding:0.88rem 1.1rem; outline:none; resize:none; transition:border-color 0.2s;
+    }
+    .finput:focus, .ftarea:focus { border-color:var(--red); }
+    .ftarea { height:130px; }
+    .fsub {
+      width:100%; background:var(--red); color:var(--white); border:none;
+      font-family:var(--font); font-weight:900; font-size:0.72rem;
+      letter-spacing:0.22em; text-transform:uppercase;
+      padding:1.1rem; cursor:pointer; transition:background 0.2s;
+    }
+    .fsub:hover { background:#e60000; }
+
+    /* ── FOOTER ── */
+    footer {
+      padding:4rem; display:flex;
+      justify-content:space-between; align-items:flex-end;
+      flex-wrap:wrap; gap:2rem;
+    }
+    .f-brand {
+      font-weight:900; font-size:clamp(2.5rem,6vw,5.5rem);
+      text-transform:uppercase; letter-spacing:-0.025em; line-height:0.9;
+      color:var(--white);
+    }
+    .f-brand span { color:var(--red); }
+    .f-sub { font-size:0.7rem; color:#303030; letter-spacing:0.1em; margin-top:0.7rem; }
+    .f-copy { font-size:0.68rem; color:#2e2e2e; letter-spacing:0.08em; text-align:right; line-height:1.9; }
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:900px){
+      nav { padding:1rem 1.5rem; }
+      .nav-links { gap:1rem; }
+      .nav-links .btn { display:none; }
+      .hero { padding:6rem 1.5rem 3.5rem; }
+      .hero-kr { display:none; }
+      .band { padding:4.5rem 1.5rem; }
+      .s-header { grid-template-columns:auto 1fr; }
+      .s-desc { display:none; }
+      .perfil-grid { grid-template-columns:1fr; }
+      .perfil-bio { border-right:none; border-bottom:1px solid rgba(255,255,255,0.05); padding:4.5rem 1.5rem; }
+      .perfil-stats { padding:4.5rem 1.5rem; }
+      .contact-grid { grid-template-columns:1fr; }
+      .c-info { border-right:none; border-bottom:1px solid rgba(255,255,255,0.05); padding:4.5rem 1.5rem; }
+      .c-form-wrap { padding:4.5rem 1.5rem; }
+      footer { padding:3rem 1.5rem; }
+      .card:nth-child(n) { grid-column:span 12 !important; }
+      .hero-deco { font-size:6rem; opacity:0.5; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="grain"></div>
+<div class="cursor" id="cur"></div>
+<div class="cursor-ring" id="ring"></div>
+
+<!-- ══ NAV ══ -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <span class="nav-dot"></span>Made by NAXXO
+  </a>
+  <ul class="nav-links">
+    <li><a href="identidad.html">Identidad</a></li>
+    <li><a href="social.html">Social</a></li>
+    <li><a href="creativo.html">Creatividad</a></li>
+    <li><a href="#contacto" class="btn btn-red nav-cta">Contacto</a></li>
+  </ul>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section class="hero">
+  <div class="hero-deco">NAXXO</div>
+
+  <div class="hero-label reveal">Diseño · Publicidad · Dirección Creativa</div>
+  <div class="hero-name reveal d1">
+    Made by<br><span class="red">NAXXO</span>
+  </div>
+  <div class="hero-bottom reveal d2">
+    <p class="hero-desc">
+      Diseñador de comunicación visual especializado en identidad de marca,
+      diseño editorial, contenido para redes sociales &amp; dirección creativa.
+      UPAEP · Keimyung University · Universidad de Murcia.
+    </p>
+    <div class="hero-locs">
+      <span class="hero-loc">México</span>
+      <span class="hero-loc act">Corea del Sur</span>
+      <span class="hero-loc">España</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══ MARQUEE 1 ══ -->
+<div class="mq-wrap">
+  <div class="mq-track">
+    <span>Identidad de Marca</span><span class="sep">✦</span>
+    <span>Diseño Editorial</span><span class="sep">✦</span>
+    <span>Redes Sociales</span><span class="sep">✦</span>
+    <span>Dirección Creativa</span><span class="sep">✦</span>
+    <span>Motion &amp; Reels</span><span class="sep">✦</span>
+    <span>Diseño Web</span><span class="sep">✦</span>
+    <span>Fotografía</span><span class="sep">✦</span>
+    <span>Identidad de Marca</span><span class="sep">✦</span>
+    <span>Diseño Editorial</span><span class="sep">✦</span>
+    <span>Redes Sociales</span><span class="sep">✦</span>
+    <span>Dirección Creativa</span><span class="sep">✦</span>
+    <span>Motion &amp; Reels</span><span class="sep">✦</span>
+    <span>Diseño Web</span><span class="sep">✦</span>
+    <span>Fotografía</span><span class="sep">✦</span>
+  </div>
+</div>
+
+<!-- ══ PERFIL ══ -->
+<div class="perfil-grid" id="perfil">
+  <div class="perfil-bio">
+    <div class="p-photo reveal"><img src="images/perfil.jpg" alt="Iñaki Arroyo — Made by NAXXO" /></div>
+    <div class="p-tag reveal">Sobre mí</div>
+    <div class="p-name reveal d1">Iñaki Arroyo</div>
+    <div class="p-role reveal d2">Community Manager · Social Media Strategist · Publicidad &amp; RRPP</div>
+    <p class="p-text reveal d2">
+      Estudiante de Publicidad y Relaciones Públicas con formación internacional
+      en México, Corea del Sur y España. Beca de excelencia académica del 60% en
+      UPAEP ganada desde el bachillerato, beca GKS en Keimyung University
+      y beca MEC del Ministerio de Educación de España 2024–2026.
+      Bachillerato Internacional con promedio 95/100. Bilingüe EN · ES,
+      coreano conversacional.
+    </p>
+    <div class="pills reveal d3">
+      <span class="pill">Español — Nativo</span>
+      <span class="pill">Inglés — TOEIC 1170</span>
+      <span class="pill">Coreano — Conversacional</span>
+      <span class="pill">Alemán — Básico</span>
+    </div>
+    <div class="pills reveal d3">
+      <span class="pill">Illustrator</span>
+      <span class="pill">Photoshop</span>
+      <span class="pill">InDesign</span>
+      <span class="pill">After Effects</span>
+      <span class="pill">Premiere</span>
+      <span class="pill">Canva</span>
+      <span class="pill">Framer</span>
+      <span class="pill">CapCut</span>
+    </div>
+    <div class="p-btns reveal d4">
+      <a href="https://www.linkedin.com/in/jaime-inaki-arroyo" target="_blank" class="btn btn-red">LinkedIn ↗</a>
+      <a href="https://linktr.ee/naked_kiki" target="_blank" class="btn btn-out">Linktree ↗</a>
+    </div>
+  </div>
+
+  <div class="perfil-stats">
+    <div class="stat reveal">
+      <div class="stat-n"><span class="r">+500</span></div>
+      <div class="stat-l">Asistentes en eventos coordinados de cultura coreana</div>
+    </div>
+    <div class="stat reveal d1">
+      <div class="stat-n"><span class="r">+100k</span></div>
+      <div class="stat-l">Visualizaciones en contenido propio para redes sociales</div>
+    </div>
+    <div class="stat reveal d2">
+      <div class="stat-n"><span class="r">+5</span></div>
+      <div class="stat-l">Años de experiencia en diseño gráfico y comunicación visual</div>
+    </div>
+    <div class="stat reveal d3">
+      <div class="stat-n"><span class="r">3</span></div>
+      <div class="stat-l">Países de formación internacional: México · Corea del Sur · España</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 01 — IDENTIDAD ══ -->
+<div class="band reveal">
+  <div class="s-header">
+    <span class="s-num">01 /</span>
+    <h2 class="s-title">Identidad<br><em>de Marca</em></h2>
+    <p class="s-desc">Logos, manuales, packaging y sistemas visuales para proyectos reales.</p>
+  </div>
+  <div class="pgrid">
+    <div class="card accent split reveal">
+      <div class="c-ph"><img src="images/kala%20tarjeta%20de%20presentacion.png" alt="Kāla Brand Guidelines" /></div>
+      <div class="c-inner">
+        <div class="c-top">
+          <span class="c-tag">Manual de Marca</span>
+          <span class="c-yr">Freelance — 2024</span>
+        </div>
+        <div class="c-title">Kāla Brand Guidelines</div>
+        <p class="c-body">Estudio de arquitectura que fusiona tradición árabe con raíces mexicanas. Manual completo: logo, paleta, tipografía, aplicaciones.</p>
+        <div class="c-meta">
+          <span class="mpill">Adobe Illustrator</span>
+          <span class="mpill">Tarjeta de Visita</span>
+          <span class="mpill">Cuaderno</span>
+        </div>
+      </div>
+    </div>
+    <div class="card reveal d1">
+      <div class="c-ph"><img src="images/mock%20up%20dandelion.png" alt="Dandelion" /></div>
+      <div class="c-inner">
+        <div class="c-top">
+          <span class="c-tag">Branding + Foto</span>
+          <span class="c-yr">Freelance — 2022</span>
+        </div>
+        <div class="c-title">Dandelion</div>
+        <p class="c-body">Identidad completa para grupo de danza — logo, insignias individuales, sesión fotográfica y diseño de Instagram.</p>
+        <div class="c-meta">
+          <span class="mpill">Adobe Illustrator</span>
+          <span class="mpill">Diseño Instagram</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="s-cta">
+    <a href="identidad.html" class="btn btn-out">Ver todos los proyectos de identidad →</a>
+  </div>
+</div>
+
+<!-- ══ 02 — SOCIAL ══ -->
+<div class="band alt reveal">
+  <div class="s-header">
+    <span class="s-num">02 /</span>
+    <h2 class="s-title">Redes<br><em>Sociales</em></h2>
+    <p class="s-desc">Posts, stories y motion GIF para Instagram — fotografía y diseño social.</p>
+  </div>
+  <div class="pgrid">
+    <div class="card reveal" style="grid-column:span 6">
+      <div class="c-ph"><img src="images/fine%20line%20ig%20post%20mock%20up.png" alt="Fine Line — Posts &amp; Stories IG" /></div>
+      <div class="c-inner">
+        <div class="c-top">
+          <span class="c-tag">Fotografía · Instagram</span>
+          <span class="c-yr">Primavera 2022 — UPAEP</span>
+        </div>
+        <div class="c-title">Fine Line — Posts &amp; Stories IG</div>
+        <p class="c-body">Serie fotográfica de instrumentos de escritura para Instagram. Posts y stories con maquetación editorial — fotografiado con iPhone 11.</p>
+        <div class="c-meta">
+          <span class="mpill">iPhone 11</span>
+          <span class="mpill">1080 × 1080 px</span>
+        </div>
+      </div>
+    </div>
+    <div class="card reveal d1" style="grid-column:span 6">
+      <div class="c-ph"><img src="images/dia%20de%20la%20madre%20mock%20up.png" alt="GIF Día de la Madre" /></div>
+      <div class="c-inner">
+        <div class="c-top">
+          <span class="c-tag">Motion GIF</span>
+          <span class="c-yr">Primavera 2022 — UPAEP</span>
+        </div>
+        <div class="c-title">GIF Día de la Madre</div>
+        <p class="c-body">GIF animado combinando ilustración y motion design en un formato cálido y celebrativo.</p>
+        <div class="c-meta">
+          <span class="mpill">Illustrator &amp; Photoshop</span>
+          <span class="mpill">1080 × 1080 px</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="s-cta">
+    <a href="social.html" class="btn btn-out">Ver todos los proyectos sociales →</a>
+  </div>
+</div>
+
+<!-- ══ 03 — CREATIVIDAD ══ -->
+<div class="band reveal">
+  <div class="s-header">
+    <span class="s-num">03 /</span>
+    <h2 class="s-title">Creatividad</h2>
+    <p class="s-desc">Editorial, tipografía, maquetación y dirección creativa en collab.</p>
+  </div>
+  <div class="pgrid">
+    <div class="card accent reveal">
+      <div class="c-inner">
+        <div class="c-top">
+          <span class="c-tag">Dirección Creativa — Collab</span>
+          <span class="c-yr">2025</span>
+        </div>
+        <div class="c-title">Vale madre lo que digan</div>
+        <p class="c-body">Dirección creativa en colaboración con <a href="https://www.instagram.com/catalinaangel_publi/" target="_blank" style="color:rgba(0,0,0,0.6);font-weight:700;">@catalinaangel_publi</a> y <a href="https://www.instagram.com/svlvzr/" target="_blank" style="color:rgba(0,0,0,0.6);font-weight:700;">@svlvzr</a>.</p>
+        <div class="c-meta">
+          <span class="mpill">Adobe Premiere</span>
+          <span class="mpill"><a href="https://www.instagram.com/reel/DTQy7BTjXmw/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank" style="color:inherit;text-decoration:none;">↗ Ver Reel</a></span>
+        </div>
+      </div>
+    </div>
+    <div class="card reveal d1">
+      <div class="c-ph"><img src="images/catalogo%20mock%20up.png" alt="Fine Line — Catálogo" /></div>
+      <div class="c-inner">
+        <div class="c-top">
+          <span class="c-tag">Catálogo</span>
+          <span class="c-yr">Primavera 2022 — UPAEP</span>
+        </div>
+        <div class="c-title">Fine Line — Catálogo</div>
+        <p class="c-body">Catálogo doble carta para instrumentos de escritura. Maquetación limpia en InDesign — precisión y elegancia.</p>
+        <div class="c-meta">
+          <span class="mpill">Adobe InDesign</span>
+          <span class="mpill">Doble Carta</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="s-cta">
+    <a href="creativo.html" class="btn btn-out">Ver todos los proyectos creativos →</a>
+  </div>
+</div>
+
+<!-- ══ 04 — INTERNSHIP ══ -->
+<div class="band alt reveal">
+  <div class="s-header">
+    <span class="s-num">04 /</span>
+    <h2 class="s-title">Internship<br><em>JobBridgeKorea</em></h2>
+    <p class="s-desc">Community Manager · Seúl, Corea del Sur — <a href="https://www.instagram.com/jobbridge.korea" target="_blank" style="color:var(--red);text-decoration:none;">@jobbridge.korea</a></p>
+  </div>
+  <table class="rtable reveal">
+    <thead>
+      <tr>
+        <th style="width:50%">Título del Reel</th>
+        <th>Vistas</th>
+        <th>Interacciones</th>
+        <th>Likes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="top-r">
+        <td>
+          <div class="rt-title">GKS No Es la Única Opción para Estudiar en Corea <span class="top-b">Top Video</span></div>
+          <a href="https://www.instagram.com/reel/DOFrLrvk0cU/" target="_blank" style="font-size:.65rem;color:#c00;text-decoration:none;">↗ Ver Reel</a>
+        </td>
+        <td style="color:var(--red);font-weight:700;">17,239</td>
+        <td style="color:var(--red);font-weight:700;">10,063</td>
+        <td>470</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="rt-title">El Verano Coreano</div>
+          <a href="https://www.instagram.com/reel/DMUj-PbTtLU/" target="_blank" style="font-size:.65rem;color:#555;text-decoration:none;">↗ Ver Reel</a>
+        </td>
+        <td>15,861</td><td>414</td><td>402</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="rt-title">Mi Visa Ha Sido Aprobada</div>
+          <a href="https://www.instagram.com/reel/DMqYqAmTgX0/" target="_blank" style="font-size:.65rem;color:#555;text-decoration:none;">↗ Ver Reel</a>
+        </td>
+        <td>15,069</td><td>495</td><td>469</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="s-cta">
+    <a href="social.html#internship" class="btn btn-out">Ver todos los reels y métricas →</a>
+  </div>
+</div>
+
+<!-- ══ MARQUEE 2 ══ -->
+<div class="mq-wrap rev">
+  <div class="mq-track">
+    <span>México</span><span class="sep">✦</span>
+    <span>Corea del Sur</span><span class="sep">✦</span>
+    <span>España</span><span class="sep">✦</span>
+    <span>UPAEP</span><span class="sep">✦</span>
+    <span>Keimyung University</span><span class="sep">✦</span>
+    <span>Universidad de Murcia</span><span class="sep">✦</span>
+    <span>JobBridge Korea</span><span class="sep">✦</span>
+    <span>México</span><span class="sep">✦</span>
+    <span>Corea del Sur</span><span class="sep">✦</span>
+    <span>España</span><span class="sep">✦</span>
+    <span>UPAEP</span><span class="sep">✦</span>
+    <span>Keimyung University</span><span class="sep">✦</span>
+    <span>Universidad de Murcia</span><span class="sep">✦</span>
+    <span>JobBridge Korea</span><span class="sep">✦</span>
+  </div>
+</div>
+
+<!-- ══ CONTACTO ══ -->
+<section id="contacto" class="contact-grid">
+  <div class="c-info">
+    <div class="c-ttl reveal">
+      Hablemos<br><em>de tu proyecto</em>
+    </div>
+    <div class="c-items">
+      <a href="mailto:inakiarroyo0@gmail.com" class="c-item reveal">
+        <div class="c-ico"><i class="fa fa-envelope"></i></div>
+        <div><div class="c-lbl">Email</div><div class="c-val">inakiarroyo0@gmail.com</div></div>
+      </a>
+      <a href="https://wa.me/34641959919" target="_blank" class="c-item reveal d1">
+        <div class="c-ico"><i class="fab fa-whatsapp"></i></div>
+        <div><div class="c-lbl">WhatsApp</div><div class="c-val">+34 641-959-919</div></div>
+      </a>
+      <a href="https://www.instagram.com/madeby_naxxo" target="_blank" class="c-item reveal d2">
+        <div class="c-ico"><i class="fab fa-instagram"></i></div>
+        <div><div class="c-lbl">Instagram Portafolio</div><div class="c-val">@madeby_naxxo</div></div>
+      </a>
+      <a href="https://linktr.ee/naked_kiki" target="_blank" class="c-item reveal d3">
+        <div class="c-ico"><i class="fas fa-link"></i></div>
+        <div><div class="c-lbl">Linktree</div><div class="c-val">linktr.ee/naked_kiki</div></div>
+      </a>
+    </div>
+    <div class="social-row reveal d4">
+      <a href="mailto:inakiarroyo0@gmail.com" class="soc-btn" title="Email"><i class="fa fa-envelope"></i></a>
+      <a href="https://wa.me/34641959919" target="_blank" class="soc-btn" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+      <a href="https://www.instagram.com/madeby_naxxo" target="_blank" class="soc-btn" title="@madeby_naxxo"><i class="fab fa-instagram"></i></a>
+      <a href="https://linktr.ee/naked_kiki" target="_blank" class="soc-btn" title="Linktree"><i class="fas fa-link"></i></a>
+      <a href="https://www.linkedin.com/in/jaime-inaki-arroyo" target="_blank" class="soc-btn" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+    </div>
+  </div>
+
+  <div class="c-form-wrap">
+    <div class="f-ttl reveal">Envía un mensaje</div>
+    <form class="reveal d1" onsubmit="return false;">
+      <div class="fgroup">
+        <label class="flbl">Nombre</label>
+        <input type="text" class="finput" placeholder="Tu nombre" />
+      </div>
+      <div class="fgroup">
+        <label class="flbl">Email</label>
+        <input type="email" class="finput" placeholder="tu@email.com" />
+      </div>
+      <div class="fgroup">
+        <label class="flbl">Asunto</label>
+        <input type="text" class="finput" placeholder="¿De qué quieres hablar?" />
+      </div>
+      <div class="fgroup">
+        <label class="flbl">Mensaje</label>
+        <textarea class="ftarea" placeholder="Cuéntame sobre tu proyecto..."></textarea>
+      </div>
+      <button type="submit" class="fsub">Enviar mensaje →</button>
+    </form>
+  </div>
+</section>
+
+<!-- ══ MARQUEE 3 ══ -->
+<div class="mq-wrap">
+  <div class="mq-track">
+    <span>Adobe Illustrator</span><span class="sep">✦</span>
+    <span>Adobe InDesign</span><span class="sep">✦</span>
+    <span>Adobe Photoshop</span><span class="sep">✦</span>
+    <span>Adobe Premiere</span><span class="sep">✦</span>
+    <span>After Effects</span><span class="sep">✦</span>
+    <span>Canva</span><span class="sep">✦</span>
+    <span>Framer</span><span class="sep">✦</span>
+    <span>CapCut</span><span class="sep">✦</span>
+    <span>Adobe Illustrator</span><span class="sep">✦</span>
+    <span>Adobe InDesign</span><span class="sep">✦</span>
+    <span>Adobe Photoshop</span><span class="sep">✦</span>
+    <span>Adobe Premiere</span><span class="sep">✦</span>
+    <span>After Effects</span><span class="sep">✦</span>
+    <span>Canva</span><span class="sep">✦</span>
+    <span>Framer</span><span class="sep">✦</span>
+    <span>CapCut</span><span class="sep">✦</span>
+  </div>
+</div>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div>
+    <div class="f-brand">Made by<br><span>NAXXO</span></div>
+    <p class="f-sub">Diseñador Gráfico &amp; Director de Arte<br>México · Corea del Sur · España</p>
+  </div>
+  <div>
+    <p class="f-copy">
+      Identidad de Marca · Redes Sociales · Dirección Creativa<br>
+      © 2026 Iñaki Arroyo — Todos los derechos reservados
+    </p>
+  </div>
+</footer>
+
+<script>
+  // ── CUSTOM CURSOR ──
+  const cur = document.getElementById('cur');
+  const ring = document.getElementById('ring');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cur.style.left = mx + 'px'; cur.style.top = my + 'px';
+  });
+
+  (function animRing(){
+    rx += (mx - rx) * 0.13;
+    ry += (my - ry) * 0.13;
+    ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+    requestAnimationFrame(animRing);
+  })();
+
+  document.querySelectorAll('a, button, .card').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cur.style.transform = 'translate(-50%,-50%) scale(2.5)';
+      ring.style.width = '54px'; ring.style.height = '54px';
+      ring.style.borderColor = 'rgba(209,0,0,0.7)';
+    });
+    el.addEventListener('mouseleave', () => {
+      cur.style.transform = 'translate(-50%,-50%) scale(1)';
+      ring.style.width = '34px'; ring.style.height = '34px';
+      ring.style.borderColor = 'rgba(209,0,0,0.45)';
+    });
+  });
+
+  // ── SCROLL REVEAL ──
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('vis'); io.unobserve(e.target); } });
+  }, { threshold: 0.08, rootMargin: '0px 0px -50px 0px' });
+
+  document.querySelectorAll('.reveal, .reveal-l, .reveal-r').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
