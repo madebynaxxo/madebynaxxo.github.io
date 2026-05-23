@@ -829,22 +829,22 @@
 
   <div class="c-form-wrap">
     <div class="f-ttl reveal">Envía un mensaje</div>
-    <form class="reveal d1" onsubmit="return false;">
+    <form class="reveal d1" action="https://formspree.io/f/xojbljbl" method="POST">
       <div class="fgroup">
         <label class="flbl">Nombre</label>
-        <input type="text" class="finput" placeholder="Tu nombre" />
+        <input type="text" class="finput" name="nombre" placeholder="Tu nombre" />
       </div>
       <div class="fgroup">
         <label class="flbl">Email</label>
-        <input type="email" class="finput" placeholder="tu@email.com" />
+        <input type="email" class="finput" name="email" placeholder="tu@email.com" />
       </div>
       <div class="fgroup">
         <label class="flbl">Asunto</label>
-        <input type="text" class="finput" placeholder="¿De qué quieres hablar?" />
+        <input type="text" class="finput" name="asunto" placeholder="¿De qué quieres hablar?" />
       </div>
       <div class="fgroup">
         <label class="flbl">Mensaje</label>
-        <textarea class="ftarea" placeholder="Cuéntame sobre tu proyecto..."></textarea>
+        <textarea class="ftarea" name="mensaje" placeholder="Cuéntame sobre tu proyecto..."></textarea>
       </div>
       <button type="submit" class="fsub">Enviar mensaje →</button>
     </form>
