@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Made by NAXXO — Portfolio</title>
+  <meta name="description" content="Portfolio of Jaime Iñaki Arroyo Domínguez. Graphic designer specializing in brand identity, editorial design, social media and creative direction. UPAEP · Keimyung University · Universidad de Murcia." />
+  <meta name="keywords" content="graphic design, brand identity, editorial design, social media, creative direction, portfolio, Made by NAXXO" />
+  <meta property="og:title" content="Made by NAXXO — Portfolio" />
+  <meta property="og:description" content="Portfolio of Jaime Iñaki Arroyo Domínguez. Graphic designer specializing in brand identity, editorial design and creative direction." />
+  <link rel="alternate" hreflang="es" href="https://madebynaxxo.github.io/" />
+  <link rel="alternate" hreflang="en" href="https://madebynaxxo.github.io/en/" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" />
+  <style>
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    :root {
+      --red:#D10000; --black:#0C0C0C; --white:#F0EAE2;
+      --grey:#161616; --grey2:#1E1E1E; --muted:#555;
+      --font:'Helvetica Neue','Helvetica',Arial,sans-serif;
+      --ease:cubic-bezier(0.16,1,0.3,1);
+    }
+    html { scroll-behavior:smooth; }
+    body { background:var(--black); color:var(--white); font-family:var(--font); font-size:16px; line-height:1.5; overflow-x:hidden; cursor:none; }
+    ::selection { background:var(--red); color:var(--white); }
+    ::-webkit-scrollbar { width:3px; }
+    ::-webkit-scrollbar-track { background:var(--black); }
+    ::-webkit-scrollbar-thumb { background:var(--red); }
+    .grain { position:fixed; top:-50%; left:-50%; width:200%; height:200%; pointer-events:none; z-index:9999; opacity:0.04; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E"); animation:grain .5s steps(2) infinite; }
+    @keyframes grain { 0%,100%{transform:translate(0,0);} 20%{transform:translate(-2%,-2%);} 40%{transform:translate(2%,2%);} 60%{transform:translate(-1%,2%);} 80%{transform:translate(3%,-1%);} }
+    .cursor { position:fixed; width:8px; height:8px; border-radius:50%; background:var(--red); pointer-events:none; z-index:10000; transform:translate(-50%,-50%); transition:transform .15s var(--ease); }
+    .cursor-ring { position:fixed; width:34px; height:34px; border-radius:50%; border:1px solid rgba(209,0,0,.45); pointer-events:none; z-index:9998; transform:translate(-50%,-50%); transition:width .25s var(--ease),height .25s var(--ease),border-color .25s; }
+    .reveal,.reveal-l,.reveal-r { opacity:0; transition:opacity .75s var(--ease),transform .75s var(--ease); }
+    .reveal { transform:translateY(36px); }
+    .reveal-l { transform:translateX(-36px); }
+    .reveal-r { transform:translateX(36px); }
+    .reveal.vis,.reveal-l.vis,.reveal-r.vis { opacity:1; transform:none; }
+    .d1{transition-delay:.1s;} .d2{transition-delay:.2s;} .d3{transition-delay:.3s;} .d4{transition-delay:.4s;} .d5{transition-delay:.5s;}
+    nav { position:fixed; top:0; left:0; right:0; z-index:500; display:flex; justify-content:space-between; align-items:center; padding:1.3rem 4rem; background:rgba(12,12,12,.88); backdrop-filter:blur(20px); border-bottom:1px solid rgba(255,255,255,.045); }
+    .nav-logo { font-weight:900; font-size:1rem; letter-spacing:.14em; color:var(--white); text-transform:uppercase; text-decoration:none; display:flex; align-items:center; gap:.6rem; }
+    .nav-dot { width:7px; height:7px; border-radius:50%; background:var(--red); animation:blink 2.2s ease-in-out infinite; }
+    @keyframes blink { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:.4;transform:scale(1.5);} }
+    .nav-links { display:flex; gap:2.5rem; list-style:none; align-items:center; }
+    .nav-links a { font-weight:700; font-size:.7rem; letter-spacing:.18em; color:#5a5a5a; text-decoration:none; text-transform:uppercase; transition:color .2s; position:relative; }
+    .nav-links a::after { content:''; position:absolute; bottom:-4px; left:0; width:0; height:1px; background:var(--red); transition:width .3s var(--ease); }
+    .nav-links a:hover { color:var(--white); }
+    .nav-links a:hover::after { width:100%; }
+    .nav-cta { background:var(--red)!important; color:var(--white)!important; padding:.5rem 1.3rem; letter-spacing:.14em!important; }
+    .nav-cta::after { display:none!important; }
+    .nav-cta:hover { background:#e60000!important; }
+    .lang-btn { border:1px solid #2a2a2a!important; color:#4a4a4a!important; padding:.28rem .65rem!important; font-size:.6rem!important; letter-spacing:.14em!important; transition:all .2s; }
+    .lang-btn:hover { border-color:var(--red)!important; color:var(--white)!important; }
+    .lang-btn::after { display:none!important; }
+    .hero { min-height:100vh; display:flex; flex-direction:column; justify-content:flex-end; padding:7rem 4rem 4.5rem; position:relative; overflow:hidden; border-bottom:1px solid rgba(255,255,255,.05); }
+    .hero-deco { position:absolute; top:50%; left:50%; transform:translate(-50%,-52%); font-weight:900; font-style:italic; font-size:clamp(14rem,26vw,28rem); color:transparent; -webkit-text-stroke:1px rgba(209,0,0,.06); white-space:nowrap; pointer-events:none; user-select:none; letter-spacing:-.04em; }
+    .hero-label { font-weight:700; font-size:.7rem; letter-spacing:.3em; color:var(--red); text-transform:uppercase; display:flex; align-items:center; gap:1rem; margin-bottom:1.5rem; }
+    .hero-label::before { content:''; width:28px; height:1px; background:var(--red); }
+    .hero-name { font-weight:900; font-size:clamp(5rem,14vw,14rem); line-height:.84; text-transform:uppercase; letter-spacing:-.035em; color:var(--white); margin-bottom:3rem; }
+    .hero-name .red { color:var(--red); }
+    .hero-bottom { display:flex; justify-content:space-between; align-items:flex-end; gap:2rem; padding-top:2rem; border-top:1px solid rgba(255,255,255,.06); }
+    .hero-desc { max-width:420px; font-size:.86rem; color:#5a5a5a; line-height:1.8; }
+    .hero-locs { display:flex; flex-direction:column; align-items:flex-end; gap:.4rem; }
+    .hero-loc { font-weight:700; font-size:.68rem; letter-spacing:.2em; color:#333; text-transform:uppercase; }
+    .hero-loc.act { color:#666; }
+    .mq-wrap { overflow:hidden; padding:1rem 0; background:var(--red); border-top:1px solid rgba(0,0,0,.15); border-bottom:1px solid rgba(0,0,0,.15); }
+    .mq-track { display:flex; animation:mq 22s linear infinite; white-space:nowrap; }
+    .mq-wrap.rev .mq-track { animation-direction:reverse; }
+    .mq-track span { font-weight:900; font-size:.7rem; letter-spacing:.28em; text-transform:uppercase; color:rgba(0,0,0,.75); padding:0 2rem; }
+    .mq-track .sep { color:rgba(0,0,0,.2); }
+    @keyframes mq { from{transform:translateX(0);} to{transform:translateX(-50%);} }
+    .band { padding:7rem 4rem; border-bottom:1px solid rgba(255,255,255,.05); }
+    .band.alt { background:#0f0f0f; }
+    .s-header { display:grid; grid-template-columns:auto 1fr auto; align-items:end; gap:1rem 3rem; margin-bottom:4rem; }
+    .s-num { font-weight:900; font-size:.62rem; letter-spacing:.3em; color:var(--red); text-transform:uppercase; padding-top:.4rem; }
+    .s-title { font-weight:900; font-size:clamp(2.8rem,6.5vw,7.5rem); text-transform:uppercase; line-height:.87; letter-spacing:-.025em; color:var(--white); }
+    .s-title em { color:var(--red); font-style:italic; }
+    .s-desc { max-width:270px; font-size:.8rem; color:#4a4a4a; line-height:1.8; text-align:right; }
+    .perfil-grid { display:grid; grid-template-columns:1fr 1fr; gap:0; border-bottom:1px solid rgba(255,255,255,.05); }
+    .perfil-bio { padding:7rem 4rem; border-right:1px solid rgba(255,255,255,.05); }
+    .p-photo { width:160px; height:160px; overflow:hidden; margin-bottom:2.5rem; border:1px solid #222; position:relative; border-radius:50%; }
+    .p-photo img { width:100%; height:100%; object-fit:cover; object-position:center 15%; filter:grayscale(15%) contrast(1.05); transition:filter .4s; }
+    .p-photo:hover img { filter:grayscale(0%) contrast(1); }
+    .p-tag { font-weight:700; font-size:.62rem; letter-spacing:.3em; color:var(--red); text-transform:uppercase; margin-bottom:2rem; display:flex; align-items:center; gap:.8rem; }
+    .p-tag::before { content:''; width:18px; height:1px; background:var(--red); }
+    .p-name { font-weight:900; font-size:clamp(2rem,4vw,4.5rem); text-transform:uppercase; line-height:.9; letter-spacing:-.02em; color:var(--white); margin-bottom:.3rem; }
+    .p-fullname { font-size:.7rem; color:#333; letter-spacing:.14em; text-transform:uppercase; font-weight:700; margin-bottom:.6rem; }
+    .p-role { font-size:.78rem; color:#444; letter-spacing:.06em; margin-bottom:2rem; }
+    .p-text { font-size:.86rem; color:#555; line-height:1.85; max-width:520px; margin-bottom:2rem; }
+    .pills { display:flex; flex-wrap:wrap; gap:.45rem; margin-bottom:2rem; }
+    .pill { font-weight:700; font-size:.6rem; letter-spacing:.14em; text-transform:uppercase; padding:.28rem .75rem; border:1px solid #252525; color:#4a4a4a; transition:border-color .2s,color .2s; }
+    .pill:hover { border-color:var(--red); color:var(--white); }
+    .p-btns { display:flex; gap:1.2rem; flex-wrap:wrap; margin-top:2.5rem; }
+    .btn { font-weight:700; font-size:.68rem; letter-spacing:.16em; text-transform:uppercase; text-decoration:none; padding:.8rem 2rem; display:inline-flex; align-items:center; gap:.4rem; transition:all .2s; }
+    .btn-red { background:var(--red); color:var(--white); }
+    .btn-red:hover { background:#e60000; }
+    .btn-out { border:1px solid #282828; color:#4a4a4a; }
+    .btn-out:hover { border-color:var(--red); color:var(--white); }
+    .perfil-stats { padding:7rem 4rem; display:flex; flex-direction:column; justify-content:center; }
+    .stat { padding:2rem 0; border-bottom:1px solid rgba(255,255,255,.05); display:grid; grid-template-columns:auto 1fr; gap:1.5rem; align-items:start; }
+    .stat:last-child { border-bottom:none; }
+    .stat-n { font-weight:900; font-size:clamp(2.5rem,4.5vw,4.5rem); line-height:1; letter-spacing:-.04em; color:var(--white); }
+    .stat-n .r { color:var(--red); }
+    .stat-l { font-size:.78rem; color:#4a4a4a; line-height:1.6; padding-top:.4rem; }
+    .pgrid { display:grid; grid-template-columns:repeat(12,1fr); gap:2px; }
+    .card { overflow:hidden; background:var(--grey); cursor:pointer; position:relative; }
+    .card:nth-child(6n+1){grid-column:span 7;} .card:nth-child(6n+2){grid-column:span 5;}
+    .card:nth-child(6n+3){grid-column:span 4;} .card:nth-child(6n+4){grid-column:span 8;}
+    .card:nth-child(6n+5){grid-column:span 6;} .card:nth-child(6n+6){grid-column:span 6;}
+    .card.accent { grid-column:span 12!important; background:var(--red); }
+    .c-ph { width:100%; aspect-ratio:16/9; background:#111; display:flex; align-items:center; justify-content:center; font-size:.6rem; letter-spacing:.2em; color:#282828; text-transform:uppercase; overflow:hidden; position:relative; transition:background .4s; }
+    .c-ph img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:transform .6s var(--ease); }
+    .card:hover .c-ph { background:#181818; }
+    .card:hover .c-ph img { transform:scale(1.05); }
+    .c-inner { padding:2rem; display:flex; flex-direction:column; gap:.9rem; border:1px solid rgba(255,255,255,.04); transition:border-color .3s; }
+    .card:hover .c-inner { border-color:rgba(209,0,0,.35); }
+    .card.accent .c-inner { border-color:transparent; padding:2.5rem; }
+    .card.accent.split { display:flex; flex-direction:row; }
+    .card.accent.split .c-ph { width:45%; aspect-ratio:auto; min-height:360px; order:2; }
+    .card.accent.split .c-inner { width:55%; order:1; display:flex; flex-direction:column; justify-content:center; }
+    .c-top { display:flex; justify-content:space-between; align-items:flex-start; }
+    .c-tag { font-weight:700; font-size:.58rem; letter-spacing:.2em; color:var(--red); text-transform:uppercase; border:1px solid var(--red); padding:.18rem .55rem; }
+    .card.accent .c-tag { color:rgba(0,0,0,.65); border-color:rgba(0,0,0,.3); }
+    .c-yr { font-weight:700; font-size:.68rem; color:#333; letter-spacing:.08em; }
+    .card.accent .c-yr { color:rgba(0,0,0,.3); }
+    .c-title { font-weight:900; font-size:clamp(1.3rem,2.5vw,2.4rem); text-transform:uppercase; line-height:.93; letter-spacing:-.01em; color:var(--white); }
+    .card.accent .c-title { font-size:clamp(2rem,4vw,5rem); color:var(--black); }
+    .c-body { font-size:.78rem; color:#4a4a4a; line-height:1.8; }
+    .card.accent .c-body { color:rgba(0,0,0,.5); }
+    .c-meta { display:flex; gap:1rem; flex-wrap:wrap; }
+    .mpill { font-weight:700; font-size:.58rem; letter-spacing:.14em; text-transform:uppercase; color:#383838; display:flex; align-items:center; gap:.3rem; }
+    .mpill::before { content:''; width:3px; height:3px; border-radius:50%; background:var(--red); flex-shrink:0; }
+    .card.accent .mpill { color:rgba(0,0,0,.35); }
+    .card.accent .mpill::before { background:rgba(0,0,0,.4); }
+    .s-cta { margin-top:2.5rem; display:flex; justify-content:flex-end; }
+    .rtable { width:100%; border-collapse:collapse; margin-top:2rem; }
+    .rtable th { font-weight:700; font-size:.6rem; letter-spacing:.25em; text-transform:uppercase; color:var(--red); text-align:left; padding:.7rem 1.2rem; border-bottom:1px solid rgba(255,255,255,.07); }
+    .rtable td { padding:1rem 1.2rem; border-bottom:1px solid rgba(255,255,255,.04); font-size:.8rem; color:#555; vertical-align:middle; transition:color .2s; }
+    .rtable tr:hover td { color:var(--white); }
+    .rt-title { font-weight:700; font-size:.9rem; text-transform:uppercase; color:var(--white); }
+    .rtable .top-r td { background:rgba(209,0,0,.04); }
+    .top-b { font-size:.52rem; background:var(--red); color:#fff; padding:.1rem .4rem; letter-spacing:.1em; font-weight:700; text-transform:uppercase; margin-left:.4rem; }
+    .contact-grid { display:grid; grid-template-columns:1fr 1fr; gap:0; border-bottom:1px solid rgba(255,255,255,.05); }
+    .c-info { padding:7rem 4rem; border-right:1px solid rgba(255,255,255,.05); }
+    .c-ttl { font-weight:900; font-size:clamp(2.5rem,5.5vw,6.5rem); text-transform:uppercase; line-height:.87; letter-spacing:-.03em; color:var(--white); margin-bottom:3rem; }
+    .c-ttl em { color:var(--red); font-style:italic; }
+    .c-items { display:flex; flex-direction:column; }
+    .c-item { display:flex; align-items:center; gap:1.4rem; padding:1.2rem 0; border-bottom:1px solid rgba(255,255,255,.05); text-decoration:none; color:#4a4a4a; transition:color .2s; }
+    .c-item:hover { color:var(--white); }
+    .c-item:hover .c-ico { background:var(--red); color:var(--white); border-color:var(--red); }
+    .c-ico { width:42px; height:42px; border:1px solid #222; display:flex; align-items:center; justify-content:center; font-size:1rem; flex-shrink:0; color:#4a4a4a; transition:all .2s; }
+    .c-lbl { font-weight:700; font-size:.6rem; letter-spacing:.2em; text-transform:uppercase; color:#3a3a3a; margin-bottom:.15rem; }
+    .c-val { font-size:.86rem; }
+    .social-row { display:flex; gap:.7rem; margin-top:2.5rem; }
+    .soc-btn { width:46px; height:46px; border:1px solid #1e1e1e; display:flex; align-items:center; justify-content:center; font-size:1.05rem; color:#4a4a4a; text-decoration:none; transition:all .2s; }
+    .soc-btn:hover { border-color:var(--red); color:var(--red); background:rgba(209,0,0,.06); }
+    .c-form-wrap { padding:7rem 4rem; }
+    .f-ttl { font-weight:900; font-size:1.1rem; letter-spacing:.08em; text-transform:uppercase; color:var(--white); margin-bottom:2.5rem; }
+    .fgroup { margin-bottom:1.4rem; }
+    .flbl { display:block; font-weight:700; font-size:.6rem; letter-spacing:.2em; text-transform:uppercase; color:#3a3a3a; margin-bottom:.55rem; }
+    .finput,.ftarea { width:100%; background:#0e0e0e; border:1px solid #1e1e1e; color:var(--white); font-family:var(--font); font-size:.85rem; padding:.88rem 1.1rem; outline:none; resize:none; transition:border-color .2s; }
+    .finput:focus,.ftarea:focus { border-color:var(--red); }
+    .ftarea { height:130px; }
+    .fsub { width:100%; background:var(--red); color:var(--white); border:none; font-family:var(--font); font-weight:900; font-size:.72rem; letter-spacing:.22em; text-transform:uppercase; padding:1.1rem; cursor:pointer; transition:background .2s; }
+    .fsub:hover { background:#e60000; }
+    footer { padding:4rem; display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:2rem; }
+    .f-brand { font-weight:900; font-size:clamp(2.5rem,6vw,5.5rem); text-transform:uppercase; letter-spacing:-.025em; line-height:.9; color:var(--white); }
+    .f-brand span { color:var(--red); }
+    .f-sub { font-size:.7rem; color:#303030; letter-spacing:.1em; margin-top:.7rem; }
+    .f-copy { font-size:.68rem; color:#2e2e2e; letter-spacing:.08em; text-align:right; line-height:1.9; }
+    .nav-ham { display:none; flex-direction:column; gap:5px; cursor:pointer; padding:.5rem; background:none; border:none; z-index:600; flex-shrink:0; }
+    .nav-ham span { display:block; width:22px; height:2px; background:var(--white); transition:all .3s var(--ease); transform-origin:center; }
+    .nav-ham.open span:nth-child(1) { transform:rotate(45deg) translate(0,7px); }
+    .nav-ham.open span:nth-child(2) { opacity:0; transform:scaleX(0); }
+    .nav-ham.open span:nth-child(3) { transform:rotate(-45deg) translate(0,-7px); }
+    @media(max-width:900px){
+      .cursor,.cursor-ring { display:none; }
+      body { cursor:auto; }
+      nav { padding:1rem 1.5rem; }
+      .nav-ham { display:flex; }
+      .nav-links { position:fixed; inset:0; background:rgba(12,12,12,.97); backdrop-filter:blur(20px); flex-direction:column; justify-content:center; align-items:center; gap:2.5rem; opacity:0; pointer-events:none; transition:opacity .35s var(--ease); z-index:400; }
+      .nav-links.open { opacity:1; pointer-events:all; }
+      .nav-links a { font-size:1.5rem!important; letter-spacing:.08em!important; color:var(--white)!important; }
+      .nav-links a::after { display:none; }
+      .nav-links .btn.nav-cta { display:flex!important; font-size:.75rem!important; padding:1rem 2.5rem!important; margin-top:1rem; }
+      .nav-links .lang-btn { font-size:.75rem!important; border-color:#333!important; }
+      .hero { padding:6rem 1.5rem 3.5rem; }
+      .hero-deco { display:none; }
+      .band { padding:4rem 1.5rem; }
+      .s-header { grid-template-columns:auto 1fr; }
+      .s-desc { display:none; }
+      .perfil-grid { grid-template-columns:1fr; }
+      .perfil-bio { border-right:none; border-bottom:1px solid rgba(255,255,255,.05); padding:4rem 1.5rem; }
+      .perfil-stats { padding:4rem 1.5rem; }
+      .contact-grid { grid-template-columns:1fr; }
+      .c-info { border-right:none; border-bottom:1px solid rgba(255,255,255,.05); padding:4rem 1.5rem; }
+      .c-form-wrap { padding:4rem 1.5rem; }
+      footer { padding:3rem 1.5rem; }
+      .card:nth-child(n) { grid-column:span 12!important; }
+      .card.accent.split { flex-direction:column; }
+      .card.accent.split .c-ph { width:100%; min-height:240px; order:1; }
+      .card.accent.split .c-inner { width:100%; order:2; }
+      .rtable-scroll { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+    }
+    @media(max-width:430px){
+      nav { padding:.85rem 1.2rem; }
+      .nav-logo { font-size:.82rem; letter-spacing:.1em; }
+      .hero { padding:5.5rem 1.2rem 3rem; }
+      .hero-name { font-size:clamp(3.2rem,15vw,6rem); line-height:.87; }
+      .hero-label { font-size:.58rem; }
+      .hero-bottom { flex-direction:column; align-items:flex-start; gap:1.5rem; }
+      .hero-locs { align-items:flex-start; flex-direction:row; gap:1rem; }
+      .hero-desc { font-size:.8rem; }
+      .band { padding:2.8rem 1.2rem; }
+      .s-title { font-size:clamp(2.2rem,9vw,4.5rem); }
+      .p-photo { width:110px; height:110px; }
+      .p-name { font-size:clamp(1.8rem,7.5vw,3.5rem); }
+      .p-fullname { font-size:.6rem; }
+      .p-text { font-size:.8rem; }
+      .perfil-bio { padding:3rem 1.2rem; }
+      .perfil-stats { padding:3rem 1.2rem; }
+      .stat-n { font-size:clamp(2rem,8vw,3.5rem); }
+      .stat-l { font-size:.72rem; }
+      .c-info { padding:3rem 1.2rem; }
+      .c-form-wrap { padding:3rem 1.2rem; }
+      .c-ttl { font-size:clamp(2rem,8.5vw,4rem); }
+      .c-inner { padding:1.4rem; gap:.7rem; }
+      .c-title { font-size:clamp(1.1rem,5vw,1.8rem)!important; }
+      .c-body { font-size:.75rem; }
+      .c-tag { font-size:.5rem; padding:.14rem .45rem; }
+      .mpill { font-size:.5rem; }
+      .btn { padding:.75rem 1.5rem; font-size:.62rem; }
+      footer { padding:2rem 1.2rem; flex-direction:column; align-items:flex-start; gap:1.5rem; }
+      .f-brand { font-size:clamp(2rem,9vw,3rem); }
+      .f-copy { text-align:left; font-size:.6rem; }
+      .rtable { font-size:.62rem; }
+      .rtable th,.rtable td { padding:.45rem .6rem; }
+      .rt-title { font-size:.7rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="grain"></div>
+<div class="cursor" id="cur"></div>
+<div class="cursor-ring" id="ring"></div>
+
+<nav>
+  <a href="index.html" class="nav-logo"><span class="nav-dot"></span>Made by NAXXO</a>
+  <button class="nav-ham" id="nav-ham" aria-label="Menu"><span></span><span></span><span></span></button>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="identity.html">Identity</a></li>
+    <li><a href="social.html">Social</a></li>
+    <li><a href="creative.html">Creativity</a></li>
+    <li><a href="../" class="lang-btn">ES</a></li>
+    <li><a href="#contact" class="btn btn-red nav-cta">Contact</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-deco">NAXXO</div>
+  <div class="hero-label reveal">Design · Advertising · Creative Direction</div>
+  <div class="hero-name reveal d1">Made by<br><span class="red">NAXXO</span></div>
+  <div class="hero-bottom reveal d2">
+    <p class="hero-desc">
+      Visual communication designer specializing in brand identity,
+      editorial design, social media content &amp; creative direction.
+      UPAEP · Keimyung University · Universidad de Murcia.
+    </p>
+    <div class="hero-locs">
+      <span class="hero-loc">Mexico</span>
+      <span class="hero-loc act">South Korea</span>
+      <span class="hero-loc">Spain</span>
+    </div>
+  </div>
+</section>
+
+<div class="mq-wrap">
+  <div class="mq-track">
+    <span>Brand Identity</span><span class="sep">✦</span>
+    <span>Editorial Design</span><span class="sep">✦</span>
+    <span>Social Media</span><span class="sep">✦</span>
+    <span>Creative Direction</span><span class="sep">✦</span>
+    <span>Motion &amp; Reels</span><span class="sep">✦</span>
+    <span>Web Design</span><span class="sep">✦</span>
+    <span>Photography</span><span class="sep">✦</span>
+    <span>Brand Identity</span><span class="sep">✦</span>
+    <span>Editorial Design</span><span class="sep">✦</span>
+    <span>Social Media</span><span class="sep">✦</span>
+    <span>Creative Direction</span><span class="sep">✦</span>
+    <span>Motion &amp; Reels</span><span class="sep">✦</span>
+    <span>Web Design</span><span class="sep">✦</span>
+    <span>Photography</span><span class="sep">✦</span>
+  </div>
+</div>
+
+<div class="perfil-grid" id="perfil">
+  <div class="perfil-bio">
+    <div class="p-photo reveal"><img src="../images/perfil.jpg" alt="Iñaki Arroyo — Made by NAXXO" /></div>
+    <div class="p-tag reveal">About me</div>
+    <div class="p-name reveal d1">Iñaki Arroyo</div>
+    <div class="p-fullname reveal d1">Jaime Iñaki Arroyo Domínguez</div>
+    <div class="p-role reveal d2">Community Manager · Social Media Strategist · Advertising &amp; PR</div>
+    <p class="p-text reveal d2">
+      Graduate in Advertising and Public Relations with international background
+      in Mexico, South Korea and Spain. Academic excellence scholarship of 60% at
+      UPAEP earned since high school, GKS scholarship at Keimyung University.
+      International Baccalaureate with 95/100 average. Bilingual EN · ES,
+      conversational Korean.
+    </p>
+    <div class="pills reveal d3">
+      <span class="pill">Spanish — Native</span>
+      <span class="pill">English — TOEIC 1170</span>
+      <span class="pill">Korean — Conversational</span>
+    </div>
+    <div class="pills reveal d3">
+      <span class="pill">Illustrator</span>
+      <span class="pill">Photoshop</span>
+      <span class="pill">InDesign</span>
+      <span class="pill">After Effects</span>
+      <span class="pill">Premiere</span>
+      <span class="pill">Canva</span>
+      <span class="pill">Framer</span>
+      <span class="pill">CapCut</span>
+    </div>
+    <div class="p-btns reveal d4">
+      <a href="https://www.linkedin.com/in/jaime-inaki-arroyo" target="_blank" class="btn btn-red">LinkedIn ↗</a>
+      <a href="https://www.instagram.com/naked_kiki" target="_blank" class="btn btn-out">Content ↗</a>
+      <a href="../cv-jaime-inaki-arroyo.pdf" download class="btn btn-out">CV PDF ↓</a>
+    </div>
+  </div>
+  <div class="perfil-stats">
+    <div class="stat reveal">
+      <div class="stat-n"><span class="r">+500</span></div>
+      <div class="stat-l">Attendees at Korean culture events organized</div>
+    </div>
+    <div class="stat reveal d1">
+      <div class="stat-n"><span class="r">+100k</span></div>
+      <div class="stat-l">Views on original social media content</div>
+    </div>
+    <div class="stat reveal d2">
+      <div class="stat-n"><span class="r">+4</span></div>
+      <div class="stat-l">Years of experience in graphic design and visual communication</div>
+    </div>
+    <div class="stat reveal d3">
+      <div class="stat-n"><span class="r">3</span></div>
+      <div class="stat-l">Countries of international education: Mexico · South Korea · Spain</div>
+    </div>
+  </div>
+</div>
+
+<!-- 01 BRAND IDENTITY -->
+<div class="band reveal">
+  <div class="s-header">
+    <span class="s-num">01 /</span>
+    <h2 class="s-title">Brand<br><em>Identity</em></h2>
+    <p class="s-desc">Logos, brand manuals, packaging and visual systems for real projects.</p>
+  </div>
+  <div class="pgrid">
+    <div class="card accent split reveal">
+      <div class="c-ph"><img src="../images/kala%20tarjeta%20de%20presentacion.png" alt="Kāla Brand Guidelines — business card and packaging" /></div>
+      <div class="c-inner">
+        <div class="c-top"><span class="c-tag">Brand Manual</span><span class="c-yr">Freelance — 2024</span></div>
+        <div class="c-title">Kāla Brand Guidelines</div>
+        <p class="c-body">Architecture studio fusing Arab tradition with deep Mexican roots. Complete manual: logo, palette, typography, applications.</p>
+        <div class="c-meta">
+          <span class="mpill">Adobe Illustrator</span>
+          <span class="mpill">Business Card</span>
+          <span class="mpill">Notebook</span>
+        </div>
+      </div>
+    </div>
+    <div class="card reveal d1">
+      <div class="c-ph"><img src="../images/mock%20up%20dandelion.png" alt="Dandelion — brand identity for dance group" /></div>
+      <div class="c-inner">
+        <div class="c-top"><span class="c-tag">Branding + Photo</span><span class="c-yr">Freelance — 2022</span></div>
+        <div class="c-title">Dandelion</div>
+        <p class="c-body">Complete brand identity for dance group — logo, individual badges, photoshoot and Instagram page design.</p>
+        <div class="c-meta">
+          <span class="mpill">Adobe Illustrator</span>
+          <span class="mpill">Instagram Design</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="s-cta"><a href="identity.html" class="btn btn-out">View all identity projects →</a></div>
+</div>
+
+<!-- 02 SOCIAL MEDIA -->
+<div class="band alt reveal">
+  <div class="s-header">
+    <span class="s-num">02 /</span>
+    <h2 class="s-title">Social<br><em>Media</em></h2>
+    <p class="s-desc">Posts, stories and motion GIF for Instagram — photography and social design.</p>
+  </div>
+  <div class="pgrid">
+    <div class="card reveal" style="grid-column:span 6">
+      <div class="c-ph"><img src="../images/fine%20line%20ig%20post%20mock%20up.png" alt="Fine Line — Instagram posts and stories mockup" /></div>
+      <div class="c-inner">
+        <div class="c-top"><span class="c-tag">Photography · Instagram</span><span class="c-yr">Spring 2022 — UPAEP</span></div>
+        <div class="c-title">Fine Line — Posts &amp; Stories IG</div>
+        <p class="c-body">Photographic series of high-quality writing instruments for Instagram. Posts and stories with editorial layout — shot with iPhone 11.</p>
+        <div class="c-meta">
+          <span class="mpill">iPhone 11</span>
+          <span class="mpill">1080 × 1080 px</span>
+        </div>
+      </div>
+    </div>
+    <div class="card reveal d1" style="grid-column:span 6">
+      <div class="c-ph"><img src="../images/dia%20de%20la%20madre%20mock%20up.png" alt="Mother's Day GIF — Instagram animation" /></div>
+      <div class="c-inner">
+        <div class="c-top"><span class="c-tag">Motion GIF</span><span class="c-yr">Spring 2022 — UPAEP</span></div>
+        <div class="c-title">Mother's Day GIF</div>
+        <p class="c-body">Animated GIF combining illustration and motion design in a warm and celebratory format.</p>
+        <div class="c-meta">
+          <span class="mpill">Illustrator &amp; Photoshop</span>
+          <span class="mpill">1080 × 1080 px</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="s-cta"><a href="social.html" class="btn btn-out">View all social projects →</a></div>
+</div>
+
+<!-- 03 CREATIVITY -->
+<div class="band reveal">
+  <div class="s-header">
+    <span class="s-num">03 /</span>
+    <h2 class="s-title">Creativity</h2>
+    <p class="s-desc">Editorial, typography, layout and creative direction in collab.</p>
+  </div>
+  <div class="pgrid">
+    <div class="card accent reveal">
+      <div class="c-ph" style="background:rgba(0,0,0,0.2);">
+        <span style="font-size:.55rem;letter-spacing:.25em;color:rgba(0,0,0,0.35);text-transform:uppercase;">Image pending</span>
+      </div>
+      <div class="c-inner">
+        <div class="c-top"><span class="c-tag">Creative Direction — Collab</span><span class="c-yr">2025</span></div>
+        <div class="c-title">Vale madre lo que digan</div>
+        <p class="c-body">Creative direction in collaboration with <a href="https://www.instagram.com/catalinaangel_publi/" target="_blank" style="color:rgba(0,0,0,0.6);font-weight:700;">@catalinaangel_publi</a> and <a href="https://www.instagram.com/svlvzr/" target="_blank" style="color:rgba(0,0,0,0.6);font-weight:700;">@svlvzr</a>.</p>
+        <div class="c-meta">
+          <span class="mpill">Adobe Premiere</span>
+          <span class="mpill"><a href="https://www.instagram.com/reel/DTQy7BTjXmw/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank" style="color:inherit;text-decoration:none;">↗ Watch Reel</a></span>
+        </div>
+      </div>
+    </div>
+    <div class="card reveal d1">
+      <div class="c-ph"><img src="../images/catalogo%20mock%20up.png" alt="Fine Line — double letter catalogue for writing instruments" /></div>
+      <div class="c-inner">
+        <div class="c-top"><span class="c-tag">Catalogue</span><span class="c-yr">Spring 2022 — UPAEP</span></div>
+        <div class="c-title">Fine Line — Catalogue</div>
+        <p class="c-body">Double letter catalogue for high-quality writing instruments. Clean InDesign layout — precision and elegance.</p>
+        <div class="c-meta">
+          <span class="mpill">Adobe InDesign</span>
+          <span class="mpill">Double Letter</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="s-cta"><a href="creative.html" class="btn btn-out">View all creative projects →</a></div>
+</div>
+
+<!-- 04 INTERNSHIP -->
+<div class="band alt reveal">
+  <div class="s-header">
+    <span class="s-num">04 /</span>
+    <h2 class="s-title">Internship<br><em>JobBridgeKorea</em></h2>
+    <p class="s-desc">Community Manager · Seoul, South Korea — <a href="https://www.instagram.com/jobbridge.korea" target="_blank" style="color:var(--red);text-decoration:none;">@jobbridge.korea</a></p>
+  </div>
+  <table class="rtable reveal">
+    <thead>
+      <tr>
+        <th style="width:50%">Reel Title</th>
+        <th>Views</th>
+        <th>Interactions</th>
+        <th>Likes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="top-r">
+        <td>
+          <div class="rt-title">GKS is Not the Only Option to Study in Korea <span class="top-b">Top Video</span></div>
+          <a href="https://www.instagram.com/reel/DOFrLrvk0cU/" target="_blank" style="font-size:.65rem;color:#c00;text-decoration:none;">↗ Watch Reel</a>
+        </td>
+        <td style="color:var(--red);font-weight:700;">17,239</td>
+        <td style="color:var(--red);font-weight:700;">10,063</td>
+        <td>470</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="rt-title">The Korean Summer</div>
+          <a href="https://www.instagram.com/reel/DMUj-PbTtLU/" target="_blank" style="font-size:.65rem;color:#555;text-decoration:none;">↗ Watch Reel</a>
+        </td>
+        <td>15,861</td><td>414</td><td>402</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="rt-title">My Visa Has Been Approved</div>
+          <a href="https://www.instagram.com/reel/DMqYqAmTgX0/" target="_blank" style="font-size:.65rem;color:#555;text-decoration:none;">↗ Watch Reel</a>
+        </td>
+        <td>15,069</td><td>495</td><td>469</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="s-cta"><a href="social.html#internship" class="btn btn-out">View all reels and metrics →</a></div>
+</div>
+
+<!-- 05 RESEARCH -->
+<div class="band reveal">
+  <div class="s-header">
+    <span class="s-num">05 /</span>
+    <h2 class="s-title">Academic<br><em>Research</em></h2>
+    <p class="s-desc">Bachelor's Thesis · Universidad de Murcia · 2026</p>
+  </div>
+  <div class="pgrid">
+    <div class="card reveal" style="grid-column:span 12">
+      <div class="c-ph" style="background:#0e0e0e;">
+        <span style="font-size:.55rem;letter-spacing:.25em;color:#2a2a2a;text-transform:uppercase;">Image pending</span>
+      </div>
+      <div class="c-inner">
+        <div class="c-top">
+          <span class="c-tag">Bachelor's Thesis</span>
+          <span class="c-yr">Universidad de Murcia · 2026</span>
+        </div>
+        <div class="c-title">Persuasive Communication and Social Advertising as Tools for Collective Memory: A Comparative and Ethical Analysis of the Tlatelolco (1968) and Gwangju (1980) Movements</div>
+        <p class="c-body">Comparative analysis of the use of visual communication and social advertising in the construction of collective memory across two resistance movements: Tlatelolco (Mexico, 1968) and Gwangju (South Korea, 1980).</p>
+        <div class="c-meta">
+          <span class="mpill">Universidad de Murcia</span>
+          <span class="mpill">Advertising &amp; Public Relations</span>
+          <span class="mpill">Outstanding 9.0/10</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="mq-wrap rev">
+  <div class="mq-track">
+    <span>Mexico</span><span class="sep">✦</span>
+    <span>South Korea</span><span class="sep">✦</span>
+    <span>Spain</span><span class="sep">✦</span>
+    <span>UPAEP</span><span class="sep">✦</span>
+    <span>Keimyung University</span><span class="sep">✦</span>
+    <span>Universidad de Murcia</span><span class="sep">✦</span>
+    <span>JobBridge Korea</span><span class="sep">✦</span>
+    <span>Mexico</span><span class="sep">✦</span>
+    <span>South Korea</span><span class="sep">✦</span>
+    <span>Spain</span><span class="sep">✦</span>
+    <span>UPAEP</span><span class="sep">✦</span>
+    <span>Keimyung University</span><span class="sep">✦</span>
+    <span>Universidad de Murcia</span><span class="sep">✦</span>
+    <span>JobBridge Korea</span><span class="sep">✦</span>
+  </div>
+</div>
+
+<section id="contact" class="contact-grid">
+  <div class="c-info">
+    <div class="c-ttl reveal">Let's talk<br><em>about your project</em></div>
+    <div class="c-items">
+      <a href="mailto:jaimejrarroyo@gmail.com" class="c-item reveal">
+        <div class="c-ico"><i class="fa fa-envelope"></i></div>
+        <div><div class="c-lbl">Email</div><div class="c-val">jaimejrarroyo@gmail.com</div></div>
+      </a>
+      <a href="https://wa.me/34641959919" target="_blank" class="c-item reveal d1">
+        <div class="c-ico"><i class="fab fa-whatsapp"></i></div>
+        <div><div class="c-lbl">WhatsApp</div><div class="c-val">+34 641-959-919</div></div>
+      </a>
+      <a href="https://www.instagram.com/naked_kiki" target="_blank" class="c-item reveal d2">
+        <div class="c-ico"><i class="fab fa-instagram"></i></div>
+        <div><div class="c-lbl">Instagram</div><div class="c-val">View content on Instagram</div></div>
+      </a>
+    </div>
+    <div class="social-row reveal d4">
+      <a href="mailto:jaimejrarroyo@gmail.com" class="soc-btn" title="Email"><i class="fa fa-envelope"></i></a>
+      <a href="https://wa.me/34641959919" target="_blank" class="soc-btn" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+      <a href="https://www.instagram.com/naked_kiki" target="_blank" class="soc-btn" title="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="https://www.linkedin.com/in/jaime-inaki-arroyo" target="_blank" class="soc-btn" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+    </div>
+  </div>
+  <div class="c-form-wrap">
+    <div class="f-ttl reveal">Send a message</div>
+    <form action="https://formspree.io/f/FORM_ID_AQUI" method="POST" class="reveal d1">
+      <div class="fgroup">
+        <label class="flbl" for="f-name">Name</label>
+        <input id="f-name" name="nombre" type="text" class="finput" placeholder="Your name" required />
+      </div>
+      <div class="fgroup">
+        <label class="flbl" for="f-email">Email</label>
+        <input id="f-email" name="email" type="email" class="finput" placeholder="you@email.com" required />
+      </div>
+      <div class="fgroup">
+        <label class="flbl" for="f-subject">Subject</label>
+        <input id="f-subject" name="asunto" type="text" class="finput" placeholder="What would you like to talk about?" />
+      </div>
+      <div class="fgroup">
+        <label class="flbl" for="f-message">Message</label>
+        <textarea id="f-message" name="mensaje" class="ftarea" placeholder="Tell me about your project..." required></textarea>
+      </div>
+      <button type="submit" class="fsub">Send message →</button>
+    </form>
+  </div>
+</section>
+
+<div class="mq-wrap">
+  <div class="mq-track">
+    <span>Adobe Illustrator</span><span class="sep">✦</span>
+    <span>Adobe InDesign</span><span class="sep">✦</span>
+    <span>Adobe Photoshop</span><span class="sep">✦</span>
+    <span>Adobe Premiere</span><span class="sep">✦</span>
+    <span>After Effects</span><span class="sep">✦</span>
+    <span>Canva</span><span class="sep">✦</span>
+    <span>Framer</span><span class="sep">✦</span>
+    <span>CapCut</span><span class="sep">✦</span>
+    <span>Adobe Illustrator</span><span class="sep">✦</span>
+    <span>Adobe InDesign</span><span class="sep">✦</span>
+    <span>Adobe Photoshop</span><span class="sep">✦</span>
+    <span>Adobe Premiere</span><span class="sep">✦</span>
+    <span>After Effects</span><span class="sep">✦</span>
+    <span>Canva</span><span class="sep">✦</span>
+    <span>Framer</span><span class="sep">✦</span>
+    <span>CapCut</span><span class="sep">✦</span>
+  </div>
+</div>
+
+<footer>
+  <div>
+    <div class="f-brand">Made by<br><span>NAXXO</span></div>
+    <p class="f-sub">Graphic Designer &amp; Art Director<br>Mexico · South Korea · Spain</p>
+  </div>
+  <div>
+    <p class="f-copy">
+      Brand Identity · Social Media · Creative Direction<br>
+      © 2026 Jaime Iñaki Arroyo Domínguez — All rights reserved
+    </p>
+  </div>
+</footer>
+
+<script>
+  const cur = document.getElementById('cur');
+  const ring = document.getElementById('ring');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+  (function animRing(){rx+=(mx-rx)*.13;ry+=(my-ry)*.13;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animRing);})();
+  document.querySelectorAll('a,button,.card').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{cur.style.transform='translate(-50%,-50%) scale(2.5)';ring.style.width='54px';ring.style.height='54px';ring.style.borderColor='rgba(209,0,0,0.7)';});
+    el.addEventListener('mouseleave',()=>{cur.style.transform='translate(-50%,-50%) scale(1)';ring.style.width='34px';ring.style.height='34px';ring.style.borderColor='rgba(209,0,0,0.45)';});
+  });
+  (function(){
+    const ham=document.getElementById('nav-ham');
+    const links=document.getElementById('nav-links');
+    if(!ham||!links)return;
+    function closeMenu(){ham.classList.remove('open');links.classList.remove('open');document.body.style.overflow='';}
+    ham.addEventListener('click',()=>{const open=links.classList.toggle('open');ham.classList.toggle('open',open);document.body.style.overflow=open?'hidden':'';});
+    links.querySelectorAll('a').forEach(a=>a.addEventListener('click',closeMenu));
+  })();
+  document.querySelectorAll('.rtable').forEach(t=>{const w=document.createElement('div');w.className='rtable-scroll';t.parentNode.insertBefore(w,t);w.appendChild(t);});
+  const io=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');io.unobserve(e.target);}});},{threshold:.08,rootMargin:'0px 0px -50px 0px'});
+  document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
