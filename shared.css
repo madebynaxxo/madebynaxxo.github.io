@@ -153,6 +153,11 @@ nav{
 .pgrid-break{flex:0 0 100%;padding:clamp(28px,4vw,56px) 0 0;}
 .pgrid > .card.accent{flex-basis:100%;}
 .card.accent{background:var(--ink);border-color:var(--ink);}
+/* two accent cards sharing one row — half width, with the type scaled down to match */
+.pgrid > .card.accent.half{flex-basis:calc((100% - var(--pg-gap))/2);}
+.card.accent.half .c-title{font-size:clamp(1.5rem,2.7vw,2.5rem);}
+.card.accent.half .c-inner{padding:clamp(20px,2.4vw,32px);}
+.card.accent.half .c-body{font-size:13px;}
 .pgrid > .card:only-child{flex-basis:100%;}
 
 .c-ph{position:relative;width:100%;aspect-ratio:16/9;background:var(--paper2);display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:.2em;color:var(--faint);text-transform:uppercase;overflow:hidden;}
@@ -551,6 +556,7 @@ a.reel-item:hover::after,a.reel-item:focus-visible::after{transform:scaleX(1);}
   .pgrid > .card,
   .pgrid:not([class*="pgrid-"]) > .card:nth-child(3n+1),
   .pgrid-2 > .card,.pgrid-3 > .card,.pgrid-4 > .card{flex-basis:100%;}
+  .pgrid > .card.accent.half{flex-basis:100%;}
   .card.accent.split{flex-direction:column;}
   .card.accent.split .c-ph{width:100%;min-height:240px;order:1;}
   .card.accent.split .c-inner{width:55%;width:100%;order:2;}
