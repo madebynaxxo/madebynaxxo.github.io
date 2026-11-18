@@ -58,7 +58,7 @@ document.querySelectorAll('a, button, .card').forEach(el => {
     if(e.key === 'ArrowRight') show(idx + 1);
   });
 
-  document.querySelectorAll('.c-gallery').forEach(gallery => {
+  document.querySelectorAll('.c-gallery, .masonry').forEach(gallery => {
     const as = [...gallery.querySelectorAll('a')];
     const srcs = as.map(a => a.href);
     as.forEach((a, i) => a.addEventListener('click', e => { e.preventDefault(); open(srcs, i); }));

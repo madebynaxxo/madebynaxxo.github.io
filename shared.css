@@ -578,3 +578,113 @@ a.reel-item:hover::after,a.reel-item:focus-visible::after{transform:scaleX(1);}
   .rt-title{font-size:12px;}
   .stat{padding:14px 10px;}
 }
+
+/* ════════════════════════════════════════════════════════
+   ESQUINAS CURVAS — ninguna imagen termina en pico
+   ════════════════════════════════════════════════════════ */
+:root{--r:22px;--r-img:16px;--r-sm:12px;}
+.card{border-radius:var(--r);}
+.c-gallery{gap:8px;padding:8px;}
+.c-gallery a{border-radius:var(--r-sm);}
+.p-photo,.aca-photo{border-radius:var(--r);}
+.reel-item{border-radius:var(--r-img);}
+.lb-img{border-radius:var(--r-img);}
+
+/* ════════════════════════════════════════════════════════
+   TARJETA DE PROYECTO — el resumen que lleva a su propia página
+   ════════════════════════════════════════════════════════ */
+.pcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(258px,1fr));gap:clamp(16px,1.8vw,26px);}
+.pcards-label{grid-column:1/-1;padding:clamp(16px,2.4vw,34px) 0 0;}
+.pcards-label span{font-weight:900;font-size:.62rem;letter-spacing:.3em;text-transform:uppercase;color:var(--red);}
+
+.pcard{
+  display:flex;flex-direction:column;
+  background:var(--white);border-radius:var(--r);padding:10px;
+  text-decoration:none;color:inherit;
+  box-shadow:0 1px 2px rgba(21,20,18,.05),0 10px 26px rgba(21,20,18,.055);
+  transition:transform .45s var(--ease),box-shadow .45s var(--ease);
+}
+.pcard:hover{transform:translateY(-6px);box-shadow:0 2px 5px rgba(21,20,18,.06),0 22px 46px rgba(21,20,18,.13);}
+.pcard-media{position:relative;border-radius:var(--r-img);overflow:hidden;aspect-ratio:4/5;background:var(--paper2);}
+.pcard-media img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .9s var(--ease);}
+.pcard:hover .pcard-media img{transform:scale(1.055);}
+/* una pieza vertical se enseña entera, enmarcada en oscuro */
+.pcard-media.fit{background:var(--ink);}
+.pcard-media.fit img{object-fit:contain;padding:14px;}
+.pcard-badge{
+  position:absolute;top:10px;left:10px;max-width:calc(100% - 20px);
+  background:rgba(21,20,18,.52);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  color:#fff;font-size:8.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;
+  padding:5px 10px;border-radius:999px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.pcard-body{display:flex;flex-direction:column;gap:8px;padding:15px 8px 8px;flex:1;}
+.pcard-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;}
+.pcard-title{font-family:var(--fd);font-weight:800;font-size:1rem;line-height:1.12;letter-spacing:-.012em;color:var(--ink);transition:color .3s;}
+.pcard:hover .pcard-title{color:var(--red);}
+.pcard-yr{flex-shrink:0;background:var(--ink);color:var(--paper);font-size:10px;font-weight:700;letter-spacing:.04em;padding:5px 10px;border-radius:999px;font-variant-numeric:tabular-nums;}
+.pcard-desc{font-size:12.5px;line-height:1.6;color:var(--muted);display:-webkit-box;-webkit-line-clamp:3;line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
+.pcard-pills{display:flex;flex-wrap:wrap;gap:5px;}
+.pcard-pills span{background:var(--paper2);color:var(--muted);font-size:9px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;padding:4px 9px;border-radius:999px;}
+.pcard-pills .pc-n{background:transparent;border:1px solid var(--line);}
+.pcard-cta{
+  margin-top:auto;display:block;text-align:center;
+  background:var(--ink);color:var(--paper);border-radius:999px;
+  padding:14px;font-size:10.5px;font-weight:700;letter-spacing:.17em;text-transform:uppercase;
+  transition:background .3s var(--ease);
+}
+.pcard:hover .pcard-cta{background:var(--red);}
+
+/* ════════════════════════════════════════════════════════
+   PÁGINA DE PROYECTO — portada, ficha y galería tipo Pinterest
+   ════════════════════════════════════════════════════════ */
+.proj-hero{padding:clamp(26px,3.6vw,50px) var(--gut) clamp(34px,4.6vw,62px);border-bottom:1px solid var(--line);}
+.proj-back{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.17em;text-transform:uppercase;color:var(--muted);text-decoration:none;margin-bottom:clamp(20px,2.8vw,38px);transition:color .3s;}
+.proj-back:hover{color:var(--red);}
+.proj-grid{display:grid;grid-template-columns:6fr 6fr;gap:clamp(24px,4vw,64px);align-items:end;margin-bottom:clamp(26px,3.6vw,52px);}
+.proj-tag{display:block;font-size:10.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--red);margin-bottom:clamp(10px,1.4vw,18px);}
+.proj-title{font-family:var(--fd);font-weight:800;font-size:clamp(2rem,5.2vw,4.4rem);line-height:.95;letter-spacing:-.025em;text-transform:uppercase;color:var(--ink);text-wrap:balance;}
+.proj-meta{margin-top:.9rem;font-size:11.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);}
+.proj-body{font-size:14.5px;line-height:1.8;color:var(--muted);max-width:54ch;}
+.proj-body a{color:var(--ink);font-weight:700;border-bottom:1px solid currentColor;text-decoration:none;}
+.proj-pills{display:flex;flex-wrap:wrap;gap:6px;margin-top:1.1rem;}
+.proj-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:1.35rem;}
+/* la portada enmarca la pieza entera y se ajusta a su forma: recortarla
+   destruiría la composición, y fijar una proporción deja marcos vacíos */
+.proj-cover{
+  border-radius:var(--r);overflow:hidden;background:var(--paper2);
+  padding:clamp(14px,2.2vw,38px);
+  display:flex;align-items:center;justify-content:center;
+}
+.proj-cover img{width:auto;max-width:100%;height:auto;max-height:min(64vh,560px);display:block;}
+.proj-cover.fit{background:var(--ink);}
+
+.band-gal{padding-top:clamp(40px,5.4vw,76px);}
+.gal-head{margin-bottom:clamp(20px,2.8vw,38px);}
+.gal-title{font-family:var(--fd);font-weight:800;font-size:clamp(1.25rem,2.5vw,1.9rem);text-transform:uppercase;letter-spacing:-.015em;color:var(--ink);}
+.gal-sub{margin-top:.5rem;font-size:12.5px;color:var(--muted);}
+/* mampostería real: cada pieza conserva su alto natural */
+.masonry{columns:4;column-gap:clamp(12px,1.4vw,20px);}
+.masonry a{
+  display:block;break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
+  margin-bottom:clamp(12px,1.4vw,20px);border-radius:var(--r-img);overflow:hidden;
+  background:var(--paper2);cursor:zoom-in;
+}
+.masonry img{width:100%;display:block;transition:transform .6s var(--ease),opacity .3s;}
+.masonry a:hover img{transform:scale(1.04);opacity:.9;}
+
+@media(max-width:1180px){ .masonry{columns:3;} }
+@media(max-width:900px){
+  .proj-grid{grid-template-columns:1fr;gap:22px;align-items:start;}
+  .masonry{columns:2;}
+  .pcards{grid-template-columns:repeat(auto-fill,minmax(212px,1fr));}
+}
+@media(max-width:560px){
+  .pcards{grid-template-columns:1fr 1fr;gap:12px;}
+  .pcard{padding:8px;}
+  .pcard-body{padding:12px 6px 6px;gap:7px;}
+  .pcard-title{font-size:.88rem;}
+  .pcard-desc{font-size:11.5px;-webkit-line-clamp:2;line-clamp:2;}
+  .pcard-cta{padding:12px;font-size:9.5px;letter-spacing:.12em;}
+  .pcard-badge{font-size:7.5px;padding:4px 8px;}
+  .proj-cover,.proj-cover.fit{aspect-ratio:4/3;}
+}
