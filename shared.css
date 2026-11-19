@@ -688,3 +688,36 @@ a.reel-item:hover::after,a.reel-item:focus-visible::after{transform:scaleX(1);}
   .pcard-badge{font-size:7.5px;padding:4px 8px;}
   .proj-cover,.proj-cover.fit{aspect-ratio:4/3;}
 }
+
+/* ════════════════════════════════════════════════════════
+   MÓVIL — menú y toque
+   ════════════════════════════════════════════════════════ */
+@media(max-width:900px){
+  /* el backdrop-filter de la barra convertía al nav en el bloque contenedor de
+     .nav-links, así que el menú "fijo" medía 58px y los primeros enlaces
+     (Identidad, Social, Creatividad) quedaban fuera de pantalla. Sin blur,
+     position:fixed vuelve a medirse contra la ventana. */
+  nav{backdrop-filter:none;-webkit-backdrop-filter:none;background:var(--paper);}
+  .nav-links{
+    width:100vw;height:100vh;height:100dvh;
+    padding:76px 24px 40px;
+    justify-content:center;gap:1.8rem;
+    overflow-y:auto;-webkit-overflow-scrolling:touch;
+  }
+  .nav-links li{flex:0 0 auto;}
+}
+
+/* en pantalla táctil no hay puntero: el primer toque se gastaba en activar el
+   :hover en vez de abrir el enlace */
+@media(hover:none){
+  .pcard{transition:none;}
+  .pcard:hover{transform:none;box-shadow:0 1px 2px rgba(21,20,18,.05),0 10px 26px rgba(21,20,18,.055);}
+  .pcard:hover .pcard-media img{transform:none;}
+  .pcard:hover .pcard-title{color:var(--ink);}
+  .pcard:hover .pcard-cta{background:var(--ink);}
+  .pcard:active{transform:scale(.985);}
+  .card:hover .c-ph img,.card:hover .c-ph.fit img,.masonry a:hover img,
+  .c-gallery a:hover img,.reel-item:hover img{transform:none;}
+  .masonry a:hover img,.c-gallery a:hover img{opacity:1;}
+  a,button,.pcard{-webkit-tap-highlight-color:rgba(200,0,26,.12);}
+}
