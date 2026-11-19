@@ -29,6 +29,26 @@
    ],
    "gallery": [
     {
+     "src": "images/yahba-01-sak-limpiador.jpg",
+     "alt": "YAHBA 01 SAK Limpiador — espuma purificante de cenote"
+    },
+    {
+     "src": "images/yahba-02-sak-tonic.jpg",
+     "alt": "YAHBA 02 SAK Tonic — agua tónica de cenote"
+    },
+    {
+     "src": "images/yahba-03-kuxtal-serum.jpg",
+     "alt": "YAHBA 03 Kuxtal Serum — suero vital"
+    },
+    {
+     "src": "images/yahba-04-yaax-crema.jpg",
+     "alt": "YAHBA 04 Yaax — crema ritual del agua"
+    },
+    {
+     "src": "images/yahba-05-kin-solar.jpg",
+     "alt": "YAHBA 05 K'in — protector solar mineral SPF 50"
+    },
+    {
      "src": "images/yahba-familia-vertical.webp",
      "alt": "YAHBA — familia de producto"
     },
@@ -79,6 +99,26 @@
     }
    ],
    "gallery": [
+    {
+     "src": "images/yahba-01-sak-limpiador.jpg",
+     "alt": "YAHBA 01 SAK Limpiador — cenote foam cleanser"
+    },
+    {
+     "src": "images/yahba-02-sak-tonic.jpg",
+     "alt": "YAHBA 02 SAK Tonic — cenote toner"
+    },
+    {
+     "src": "images/yahba-03-kuxtal-serum.jpg",
+     "alt": "YAHBA 03 Kuxtal Serum — water ritual serum"
+    },
+    {
+     "src": "images/yahba-04-yaax-crema.jpg",
+     "alt": "YAHBA 04 Yaax — water ritual cream"
+    },
+    {
+     "src": "images/yahba-05-kin-solar.jpg",
+     "alt": "YAHBA 05 K'in — mineral sunscreen SPF 50"
+    },
     {
      "src": "images/yahba-familia-vertical.webp",
      "alt": "YAHBA — product family"
